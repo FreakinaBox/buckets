@@ -1,0 +1,27 @@
+$enable-gradients: true;
+@import "~bootstrap/scss/bootstrap";
+@import '~react-table/react-table';
+
+$dark: darken($btn-primary-bg, 20%);
+
+nav {
+  margin: 0 0 $spacer-y;
+  @include gradient-y-three-colors($btn-primary-bg, $dark, 60%, $btn-primary-bg);
+  box-shadow: 0 2px 3px #666666;
+
+  .btn {
+    @extend .btn-primary;
+    margin: 0 $spacer-x/2;
+    border: 0;
+    border-radius: 0;
+
+    @include gradient-y-three-colors($btn-primary-bg, $dark, 60%, $btn-primary-bg);
+    &.active, &:hover {
+      @include gradient-y-three-colors($btn-primary-bg, $dark, 40%, $btn-primary-bg);
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
