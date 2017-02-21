@@ -7,6 +7,8 @@ const dbPrototype = Promise.promisifyAll(require("mongojs/lib/database").prototy
 Promise.promisifyAll(require("mongojs/lib/collection").prototype);
 Promise.promisifyAll(require("mongojs/lib/cursor").prototype);
 
+let url = process.env.MONGODB_URI || '192.168.99.100/buckets';
+
 dbPrototype.getNextIdAsync = function (counter) {
 	return db.counters.findAndModifyAsync({
 			query: {id: counter},
@@ -19,7 +21,7 @@ dbPrototype.getNextIdAsync = function (counter) {
 		});
 };
 
-let db = mongojs('192.168.99.100/buckets');
+let db = mongojs(url);
 
 module.exports = db;
 
