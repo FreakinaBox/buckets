@@ -6,13 +6,10 @@ const http2 = require('spdy');
 const app = require('./components/app');
 const Socket = require('./components/Socket');
 
-const port = process.env.PORT || 5000;
-
-
-//initialize Socket.IO
+const port = process.env.PORT || 80;
 
 //use live reload if not in production
-require('express-livereload')(app, {watchDir: 'client'});
+process.env.NODE_ENV !== 'production' && require('express-livereload')(app, {watchDir: 'client'});
 
 //start in httpd mode
 // let options = {
