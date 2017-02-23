@@ -12,6 +12,7 @@ class Product extends React.Component {
 				<td><FormControl/></td>
 				<td><FormControl/></td>
 				<td><FormControl/></td>
+				<td><FormControl/></td>
 				<td><FormControl type="number"/></td>
 				<td><Button bsStyle="danger" onClick={() => this.props.products.deleteProduct(this.props.data)}>X</Button></td>
 			</tr>
@@ -50,6 +51,7 @@ export default class ProductList extends React.Component {
 					<th>Cut</th>
 					<th>Dimensions Green</th>
 					<th>Dimensions Dry</th>
+					<th>Color</th>
 					<th>Quantity</th>
 					<th className="text-right">
 						<Button bsStyle="success" bsSize="xsmall" onClick={() => this.addProduct()}>Add</Button>
