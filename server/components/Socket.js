@@ -6,6 +6,7 @@ const Client = require('./Client');
 module.exports = class Socket {
 	constructor(server) {
 		this.io = socketIO(server);
-		this.io.on('connection', clientSocket => new Client(this.io, clientSocket));
+		this.clients = {};
+		this.io.on('connection', clientSocket => new Client(clientSocket));
 	}
 };

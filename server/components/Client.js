@@ -2,8 +2,7 @@ const db = require('./Database');
 
 class Client {
 
-	constructor(mainSocket, clientSocket) {
-		this.mainSocket = mainSocket;
+	constructor(clientSocket) {
 		this.clientSocket = clientSocket;
 
 		console.log('client connected', clientSocket.id);
@@ -34,7 +33,7 @@ class Client {
 	//save data and emit to other connections
 	updateItem(id, data) {
 		db.items.updateAsync({id}, {$set: data});
-		this.mainSocket.emit('updateItem', id, data)
+		this.clientSocket.broadcast.to(`i${id}`).emit('updateItem', id, data);
 	}
 
 	searchItems(filters, send) {

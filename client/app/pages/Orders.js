@@ -3,7 +3,7 @@ import ReactTable from "react-table";
 import StatusSelector from "../components/StatusSelector";
 import socket from "../components/socket";
 
-export default class Items extends React.Component {
+export default class Orders extends React.Component {
 	constructor(...props) {
 		super(...props);
 
@@ -32,7 +32,7 @@ export default class Items extends React.Component {
 	rowSetup(state, rowInfo) {
 		return rowInfo ? {
 				onClick: () => {
-					this.props.router.push(`items/${rowInfo.row.id}`);
+					this.props.router.push(`orders/${rowInfo.row.id}`);
 				}
 			} : {};
 	}
