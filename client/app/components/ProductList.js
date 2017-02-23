@@ -12,7 +12,7 @@ class Product extends React.Component {
 				<td><FormControl/></td>
 				<td><FormControl/></td>
 				<td><FormControl/></td>
-				<td><FormControl componentClass="number"/></td>
+				<td><FormControl type="number"/></td>
 				<td><Button bsStyle="danger" onClick={() => this.props.products.deleteProduct(this.props.data)}>X</Button></td>
 			</tr>
 		);
