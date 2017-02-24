@@ -1,24 +1,6 @@
 import React from "react";
 import {Button, Table, FormControl} from "react-bootstrap";
 
-class Product extends React.Component {
-
-
-	render() {
-		return (
-			<tr>
-				<td><FormControl/></td>
-				<td><FormControl/></td>
-				<td><FormControl/></td>
-				<td><FormControl/></td>
-				<td><FormControl/></td>
-				<td><FormControl/></td>
-				<td><FormControl type="number"/></td>
-				<td><Button bsStyle="danger" onClick={() => this.props.products.deleteProduct(this.props.data)}>X</Button></td>
-			</tr>
-		);
-	}
-}
 
 export default class ProductList extends React.Component {
 	constructor(...props) {
@@ -26,12 +8,15 @@ export default class ProductList extends React.Component {
 	}
 
 	addProduct() {
-		let products = this.props.products.concat([{timestamp: Date.now()}]);
+		let products = this.props.products.concat([{}]);
 		this.props.onChange(products);
 	}
 
-	updateProduct() {
-
+	updateProduct(product, field, newValue) {
+		const products = this.props.products.map(p => {
+			return p === product ? {...p, [field]: newValue} : p;
+		});
+		this.props.onChange(products);
 	}
 
 	deleteProduct(product) {
@@ -43,7 +28,7 @@ export default class ProductList extends React.Component {
 
 	render() {
 		return (
-			<Table responsive>
+			<Table responsive striped>
 				<thead>
 				<tr>
 					<th>Species</th>
@@ -59,9 +44,60 @@ export default class ProductList extends React.Component {
 				</tr>
 				</thead>
 				<tbody>
-				{this.props.products.map(product => <Product key={product.timestamp} data={product} products={this}/>)}
+				{this.props.products.map((product, i) => this.renderRow(i, product, this))}
 				</tbody>
 			</Table>
+		);
+	}
+
+	renderRow(i, product) {
+		return (
+			<tr key={i}>
+				<td>
+					<FormControl
+						value={product.species || ''}
+						onChange={e => this.updateProduct(product, 'species', e.target.value)}
+					/>
+				</td>
+				<td>
+					<FormControl
+						value={product.dried || ''}
+						onChange={e => this.updateProduct(product, 'dried', e.target.value)}
+					/>
+				</td>
+				<td>
+					<FormControl
+						value={product.cut || ''}
+						onChange={e => this.updateProduct(product, 'cut', e.target.value)}
+					/>
+				</td>
+				<td>
+					<FormControl
+						value={product.dimensionsGreen || ''}
+						onChange={e => this.updateProduct(product, 'dimensionsGreen', e.target.value)}
+					/>
+				</td>
+				<td>
+					<FormControl
+						value={product.dimensionsDry || ''}
+						onChange={e => this.updateProduct(product, 'dimensionsDry', e.target.value)}
+					/>
+				</td>
+				<td>
+					<FormControl
+						value={product.color || ''}
+						onChange={e => this.updateProduct(product, 'color', e.target.value)}
+					/>
+				</td>
+				<td>
+					<FormControl
+						type="number"
+						value={product.quantity || 0}
+						onChange={e => this.updateProduct(product, 'quantity', e.target.value)}
+					/>
+				</td>
+				<td><Button bsStyle="danger" onClick={() => this.deleteProduct(product)}>X</Button></td>
+			</tr>
 		);
 	}
 }

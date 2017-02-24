@@ -91,7 +91,10 @@ export default class Order extends React.Component {
 								/>
 							</Col>
 						</Row>
-						<ProductList products={this.state.products} onChange={products => this.sendUpdate('products', products)}/>
+						<ProductList
+							products={this.state.products}
+							onChange={products => this.sendUpdate('products', products)}
+						/>
 						<Row>
 							<Col sm={12}>
 								<DataPoint
