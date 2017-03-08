@@ -17,7 +17,7 @@ dbPrototype.getNextIdAsync = function (counter) {
 			upsert: true
 		})
 		.then(counter => {
-			return counter.value;
+			return counter.value + '';
 		});
 };
 

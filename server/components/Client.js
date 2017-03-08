@@ -18,7 +18,7 @@ class Client {
 
 	createItem(send) {
 		db.getNextIdAsync('items')
-			.then(id => db.items.insertAsync({id}))
+			.then(id => db.items.insertAsync({id, status: 'New'}))
 			.then(item => send(item))
 			.catch(e => this.clientSocket.emit('error', e));
 	}

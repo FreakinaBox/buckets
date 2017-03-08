@@ -20,6 +20,5 @@ export default class DataPoint extends React.Component {
 };
 
 DataPoint.defaultProps = {
-	componentClass: 'input',
-	value: ''
+	componentClass: 'input'
 };

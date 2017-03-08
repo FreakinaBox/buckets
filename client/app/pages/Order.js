@@ -9,7 +9,7 @@ export default class Order extends React.Component {
 	constructor(...params) {
 		super(...params);
 
-		this.id = +this.props.params.item;
+		this.id = this.props.params.item;
 		this.state = {products: []};
 		this.sendUpdate = this.sendUpdate.bind(this);
 
@@ -52,9 +52,15 @@ export default class Order extends React.Component {
 								</FormGroup>
 								<DataPoint
 									label="Status"
+									componentClass="select"
 									value={this.state.status}
 									onChange={e => this.sendUpdate('status', e.target.value)}
-								/>
+								>
+									<option>New</option>
+									<option>In Progress</option>
+									<option>Finished</option>
+									<option>Canceled</option>
+								</DataPoint>
 								<DataPoint
 									label="Order Date"
 									componentClass="datePicker"
