@@ -1,7 +1,10 @@
 //$enable-gradients: true;
 //@import '~bootstrap/scss/bootstrap';
 $bootstrap-sass-asset-helper: true;
+$font-size-base: 16px;
 @import '~bootswatch/spacelab/variables';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 @import '~bootswatch/spacelab/bootswatch';
 @import '~react-table/react-table';
+
+@import 'print';
