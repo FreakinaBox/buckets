@@ -8,7 +8,7 @@
 	"scripts": {
 		"start": "node server/main.js",
 		"dev": "webpack --watch",
-		"heroku-postbuild": "NODE_ENV=development yarn; webpack; yarn; NODE_ENV;"
+		"heroku-postbuild": "NODE_ENV=development yarn; webpack; yarn; echo NODE_ENV;"
 	},
 	"dependencies": {
 		"bluebird": "3",
