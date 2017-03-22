@@ -1,6 +1,7 @@
 import React from "react";
 import ReactTable from "react-table";
 import moment from "moment";
+import debounce from "debounce";
 import DataPoint from "../components/DataPoint";
 import socket from "../components/socket";
 
@@ -9,24 +10,31 @@ export default class Orders extends React.Component {
 		super(...props);
 
 		this.rowSetup = this.rowSetup.bind(this);
+		this.searchItems = debounce(this._searchItems.bind(this), 500);
 
-		this.state = {items: []};
-		this.filters = {};
+		this.state = {
+			items: [],
+			status: [
+				{label: 'New', value: 'New'},
+				{label: 'In Progress', value: 'In Progress'}
+			]
+		};
+		this.filters = {status: {$in: ['New', 'In Progress']}};
 		this.rawFilters = {};
 		this.columns = [
 			{header: 'ID', accessor: 'id'},
 			{header: 'Client', accessor: 'client'},
 			{header: 'Assigned To', accessor: 'assignedTo'},
 			{header: 'Status', accessor: 'status'},
-			{header: 'Order Date', accessor: 'orderDate', render: this.formatDate},
-			{header: 'Due Date', accessor: 'dueDate', render: this.formatDate},
+			{header: 'Order Date', accessor: 'orderDate', render: Orders.formatDate},
+			{header: 'Due Date', accessor: 'dueDate', render: Orders.formatDate},
 		];
 
 		this.searchItems();
 	}
 
-	formatDate(rowInfo) {
-		var date = moment(rowInfo.value);
+	static formatDate(rowInfo) {
+		let date = moment(rowInfo.value);
 		return date.format('LL');
 	}
 
@@ -41,7 +49,19 @@ export default class Orders extends React.Component {
 		this.searchItems();
 	}
 
-	searchItems() {
+	setStatusFilter(values) {
+		this.setState({status: values});
+
+		let filters = values.map(o => {
+			return o.value;
+		});
+
+		this.filters.status = {$in: filters};
+
+		this.searchItems();
+	}
+
+	_searchItems() {
 		socket.emit('searchItems', this.filters, items => this.setState({items}));
 	}
 
@@ -83,15 +103,17 @@ export default class Orders extends React.Component {
 					<div className="col-sm-4">
 						<DataPoint
 							label="Status"
-							componentClass="select"
-							onChange={e => this.updateFilter('status', e.target.value)}
-						>
-							<option></option>
-							<option>New</option>
-							<option>In Progress</option>
-							<option>Finished</option>
-							<option>Canceled</option>
-						</DataPoint>
+							componentClass="reactSelect"
+							multi={true}
+							options={[
+								{label: 'New', value: 'New'},
+								{label: 'In Progress', value: 'In Progress'},
+								{label: 'Finished', value: 'Finished'},
+								{label: 'Canceled', value: 'Canceled'}
+							]}
+							value={this.state.status}
+							onChange={v => this.setStatusFilter(v)}
+						/>
 					</div>
 
 					<div className="col-sm-4">

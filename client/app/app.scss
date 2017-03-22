@@ -6,5 +6,11 @@ $font-size-base: 16px;
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 @import '~bootswatch/spacelab/bootswatch';
 @import '~react-table/react-table';
+@import '~react-select/scss/default';
 
 @import 'print';
+
+//show the pointer when overing over search results
+.rt-tr-group {
+  cursor: pointer;
+}

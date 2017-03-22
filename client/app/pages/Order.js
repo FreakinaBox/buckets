@@ -1,4 +1,5 @@
 import React from "react";
+import debounce from "debounce";
 import socket from "../components/socket";
 import {Form, FormGroup, FormControl, ControlLabel, Grid, Row, Col} from "react-bootstrap";
 import DataPoint from "../components/DataPoint";
@@ -12,6 +13,7 @@ export default class Order extends React.Component {
 		this.id = this.props.params.item;
 		this.state = {products: []};
 		this.sendUpdate = this.sendUpdate.bind(this);
+		this.emit = debounce(this._emit.bind(this), 500);
 
 		//load item and subscribe to its updates
 		socket.emit('getItem', this.id, (item = {}) => {
@@ -25,6 +27,10 @@ export default class Order extends React.Component {
 
 	sendUpdate(field, value) {
 		this.setState({[field]: value});
+		this.emit(field, value);
+	}
+
+	_emit(field, value) {
 		socket.emit('updateItem', this.state.id, {[field]: value});
 	}
 
