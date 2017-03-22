@@ -66,11 +66,7 @@ export default class Orders extends React.Component {
 	}
 
 	rowSetup(state, rowInfo) {
-		return rowInfo ? {
-				onClick: () => {
-					this.props.router.push(`orders/${rowInfo.row.id}`);
-				}
-			} : {};
+		return rowInfo ? {onClick: () => this.props.router.push(`orders/${rowInfo.row.id}`)} : {};
 	}
 
 	render() {

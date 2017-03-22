@@ -1,6 +1,3 @@
-const webpack = require('webpack');
-const path = require('path');
-
 module.exports = {
 	context: `${__dirname}/client/app`,
 	devtool: 'inline_sourcemap',
@@ -21,5 +18,5 @@ module.exports = {
 	output: {
 		path: 'client',
 		filename: 'app.min.js'
-	},
+	}
 };
