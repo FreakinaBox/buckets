@@ -8,7 +8,7 @@
 	"scripts": {
 		"start": "node server/main.js",
 		"dev": "webpack --watch",
-		"heroku-postbuild": "npm install --only=dev && webpack -p && npm prune"
+		"heroku-postbuild": ". install.sh"
 	},
 	"dependencies": {
 		"bluebird": "3",
