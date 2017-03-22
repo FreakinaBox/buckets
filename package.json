@@ -7,7 +7,8 @@
 	},
 	"scripts": {
 		"start": "node server/main.js",
-		"dev": "webpack --watch",
+		"build": "webpack",
+		"build:watch": "webpack -w",
 		"heroku-postbuild": "NODE_ENV=development yarn; webpack; yarn;"
 	},
 	"dependencies": {
